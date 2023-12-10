@@ -94,7 +94,7 @@ export function CustomerForm({ onNext }: any) {
             className="text-md rounded-full font-bold max-lg:w-full"
             onClick={onNext}
             type={'submit'}
-            // disabled={!form.formState.isValid}
+            disabled={!form.formState.isValid}
           >
             Next
           </Button>
