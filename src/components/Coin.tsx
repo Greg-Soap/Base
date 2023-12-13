@@ -1,11 +1,12 @@
 import React from 'react';
 
-export default function Coin({ data }: any) {
+export default function Coin({ data, Wallet }: any) {
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-2">
       {data.map((coin: any, idx: any) => (
         <div
           key={idx}
+          onClick={() => Wallet(coin.title)}
           className="flex w-full items-center justify-between rounded-full bg-muted-foreground p-2 hover:bg-gray-300 min-[465px]:w-[48%] min-[672px]:w-[32%] min-[880px]:w-[24%] lg:w-[48%]  "
         >
           <div className="flex items-center gap-1">
@@ -44,7 +45,7 @@ export const gatewayPolygon = [
     image:
       '/images/57f28803aad363f419a950a5f5b99acfd4fba8b683c01b9450baab43c9fa97ea.png',
     title: 'Matric',
-    code: 'MATRIC',
+    code: 'MATIC',
   },
   {
     image: '/images/usdc-polygon.png',

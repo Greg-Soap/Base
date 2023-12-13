@@ -4,19 +4,31 @@ import { CustomerForm } from '@/components/ContactForm';
 import Timer from '@/components/Timer';
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
+import Payment from './Payment';
+import { IPayment, PaymentData } from '@/assets/Payment';
 
 export default function Right() {
   enum STEPS {
     CUSTOMER_DETAILS = 0,
     PAYMENT_GATEWAY = 1,
+    PAYMENT_QR = 2,
   }
   const [step, setStep] = useState(STEPS.CUSTOMER_DETAILS);
+  const [paymentWallet, setPaymentWallet] = useState<IPayment | undefined>(
+    undefined,
+  );
   const onBack = () => {
     setStep((value) => value - 1);
   };
 
   const onNext = () => {
     setStep((value) => value + 1);
+  };
+  const Wallet = (title: string) => {
+    setPaymentWallet(
+      PaymentData.find((paymentData) => paymentData.title === title),
+    );
+    onNext();
   };
   let body = (
     <>
@@ -50,14 +62,14 @@ export default function Right() {
             <p className="py-5 text-base">
               or select a cryptocurrency to pay with another wallet
             </p>
-            <Coin data={gateway} />
+            <Coin data={gateway} Wallet={Wallet} />
             <p className="flex items-center py-5 text-base font-bold">
               <span className="mr-2 rounded-full bg-primary p-1 font-bold text-white ">
                 NEW
               </span>{' '}
               Now available on Polygon network
             </p>
-            <Coin data={gatewayPolygon} />
+            <Coin data={gatewayPolygon} Wallet={Wallet} />
           </div>
         </div>
         <div className="self-end border-muted-foreground p-6 max-lg:w-full max-lg:border-t">
@@ -72,6 +84,10 @@ export default function Right() {
       </>
     );
   }
+  if (step === STEPS.PAYMENT_QR) {
+    body = <Payment data={paymentWallet} onBack={onBack} />;
+  }
+
   return (
     <div className="flex h-full min-h-[calc(100vh-24px)] flex-1 flex-col justify-between border-l border-muted-foreground lg:p-6">
       <div className="flex flex-col gap-4 ">
@@ -85,7 +101,7 @@ export default function Right() {
           />
           <div
             className={`${
-              step === STEPS.PAYMENT_GATEWAY
+              step === STEPS.PAYMENT_GATEWAY || step === STEPS.PAYMENT_QR
                 ? 'bg-primary'
                 : 'bg-muted-foreground'
             } h-1 flex-1
