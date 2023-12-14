@@ -27,6 +27,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          type="image/png"
+          href="/android-chrome-192x192.png"
+          sizes="192x192"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href="/android-chrome-512x512.png"
+          sizes="512x512"
+        />
+      </head>
       <body
         className={`
         

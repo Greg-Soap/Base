@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import Payment from './Payment';
 import { IPayment, PaymentData } from '@/assets/Payment';
+import { useRouter } from 'next/navigation';
 
 export default function Right() {
   enum STEPS {
@@ -26,10 +27,11 @@ export default function Right() {
   };
   const Wallet = (title: string) => {
     setPaymentWallet(
-      PaymentData.find((paymentData) => paymentData.title === title),
+      PaymentData.find((paymentData) => paymentData.code === title),
     );
     onNext();
   };
+  const router = useRouter();
   let body = (
     <>
       <div className="flex flex-col">
@@ -56,6 +58,7 @@ export default function Right() {
             <Button
               variant={'default'}
               className="text-md w-full  rounded-full"
+              onClick={() => router.push('/sign-in')}
             >
               Pay with<span className="ml-1 font-bold"> coinbase</span>
             </Button>
@@ -63,11 +66,11 @@ export default function Right() {
               or select a cryptocurrency to pay with another wallet
             </p>
             <Coin data={gateway} Wallet={Wallet} />
-            <p className="flex items-center py-5 text-base font-bold">
+            <p className="flex items-center py-5 text-sm font-bold">
               <span className="mr-2 rounded-full bg-primary p-1 font-bold text-white ">
                 NEW
               </span>{' '}
-              Now available on Polygon network
+              Now available on Polygon network{' '}
             </p>
             <Coin data={gatewayPolygon} Wallet={Wallet} />
           </div>
@@ -89,7 +92,7 @@ export default function Right() {
   }
 
   return (
-    <div className="flex h-full min-h-[calc(100vh-24px)] flex-1 flex-col justify-between border-l border-muted-foreground lg:p-6">
+    <div className="flex h-full min-h-[calc(100vh-24px)] flex-1 flex-col justify-between overflow-scroll border-l border-muted-foreground lg:p-6">
       <div className="flex flex-col gap-4 ">
         <div className="flex w-full gap-1 max-lg:p-6">
           <div
@@ -110,7 +113,7 @@ export default function Right() {
         </div>
         <div className="flex min-h-[80px] items-center gap-6 rounded-sm border border-muted-foreground p-6 max-lg:flex-col max-lg:items-start max-lg:border-none">
           <img
-            src="https://res.cloudinary.com/commerce/image/upload/v1699370812/meadisztazea06pbqtd1.jpg"
+            src="/images/logo.png"
             alt="image"
             className="max-h-[80px] max-w-[80px] max-lg:max-h-[200px] max-lg:max-w-[200px] "
           />

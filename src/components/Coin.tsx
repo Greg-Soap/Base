@@ -6,7 +6,7 @@ export default function Coin({ data, Wallet }: any) {
       {data.map((coin: any, idx: any) => (
         <div
           key={idx}
-          onClick={() => Wallet(coin.title)}
+          onClick={() => Wallet(coin.code)}
           className="flex w-full items-center justify-between rounded-full bg-muted-foreground p-2 hover:bg-gray-300 min-[465px]:w-[48%] min-[672px]:w-[32%] min-[880px]:w-[24%] lg:w-[48%]  "
         >
           <div className="flex items-center gap-1">
