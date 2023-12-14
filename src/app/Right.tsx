@@ -118,11 +118,8 @@ export default function Right() {
             className="max-h-[80px] max-w-[80px] max-lg:max-h-[200px] max-lg:max-w-[200px] "
           />
           <div className="flex flex-col">
-            <h2 className="font-bold text-neutral-800">50 Steps to Beach</h2>
-            <p className="text-muted">
-              Our beach home is located right off of the sandy white beaches,
-              and is a perfect place for the whole family.{' '}
-            </p>
+            <h2 className="font-bold text-neutral-800">GLOBALTRADEPRO</h2>
+            <p className="text-muted">Deposit to gain financial freedom</p>
           </div>
         </div>
         <div className="flex flex-col rounded-sm border border-muted-foreground max-lg:border-x-0 max-lg:border-b-0">

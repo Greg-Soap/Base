@@ -18,9 +18,7 @@ const formSchema = z.object({
   customerName: z.string().min(5, {
     message: 'Name must be at least 5 characters.',
   }),
-  Phone: z.string().min(11, {
-    message: 'Phone Number must be 11 digits',
-  }),
+
   email: z
     .string()
     .min(5, {
@@ -35,7 +33,6 @@ export function CustomerForm({ onNext }: any) {
     defaultValues: {
       customerName: '',
       email: '',
-      Phone: '',
     },
   });
 
@@ -65,23 +62,10 @@ export function CustomerForm({ onNext }: any) {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="flex-1 max-sm:w-full">
+              <FormItem className="w-full">
                 <FormLabel className="font-semibold">Email address</FormLabel>
                 <FormControl>
                   <Input placeholder="Email Address" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="Phone"
-            render={({ field }) => (
-              <FormItem className="flex-1 max-sm:w-full">
-                <FormLabel className="font-semibold">Phone Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="Phone Number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
